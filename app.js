@@ -21,7 +21,6 @@ function mobileFullscreen()
   }
 }
 
-// var ROOT = params.root ?? -5-12-12;
 var ROOT = parseInt(params.root ?? -12-12+3-12);
 var STEP = parseInt(params.step ?? 5);
 var N_STRINGS = parseInt(params.strings ?? 4);
@@ -34,8 +33,8 @@ Tone.getContext().lookAhead = LOOKAHEAD;
 
 var WHITES = [1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0]; //starting at A
 
-var SW = canvas.width / STRINGS.length;
-var FH = canvas.height / N_FRETS;
+var SW = () => window.innerWidth / STRINGS.length;
+var FH = () => window.innerHeight / N_FRETS;
 
 function mod(n, m)
 {
@@ -105,7 +104,7 @@ function onTouch(id, x, y)
   Tone.context.resume();
 
   //determine string
-  var string = Math.floor(x / SW);
+  var string = Math.floor(x / SW());
   string = Math.max(0, Math.min(string, STRINGS.length - 1));
   var freq = calcFreq(string, y);
 
@@ -141,8 +140,8 @@ function render()
   g.clearRect(0, 0, canvas.width, canvas.height);
 
   STRINGS.forEach((e, i) => {
-    var x1 = i * SW;
-    var x2 = (i + 1) * SW;
+    var x1 = i * SW();
+    var x2 = (i + 1) * SW();
 
     var grd = g.createLinearGradient(x1, 0, x2, 0);
     grd.addColorStop(0, "black");
@@ -152,19 +151,19 @@ function render()
     g.lineWidth = 3;
     g.fillStyle = grd;
 
-    g.fillRect(x1, 0, SW, canvas.height);
+    g.fillRect(x1, 0, SW(), canvas.height);
 
     for(var j = 0; j < N_FRETS; j++)
     {
       var note = STRINGS[i] + j;
       var isWhite = WHITES[mod(note, 12)]; //+8 to go from a to c lol
-      var y1 = j * FH;
-      var y2 = (j + 1) * FH;
+      var y1 = j * FH();
+      var y2 = (j + 1) * FH();
 
       var w = isWhite ? 255 : 0;
       g.fillStyle = `rgba(${w}, ${w}, ${w}, 0.25)`;
-      g.fillRect(x1, canvas.height-y2, SW, FH);
-      g.strokeRect(x1, canvas.height-y2, SW, FH);
+      g.fillRect(x1, canvas.height-y2, SW(), FH());
+      g.strokeRect(x1, canvas.height-y2, SW(), FH());
     }
   })
 
