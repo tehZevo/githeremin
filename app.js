@@ -16,9 +16,8 @@ function mobileFullscreen()
     return;
   }
 
-  requestedFullscreen = true;
   if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-    document.body.requestFullscreen();
+    document.body.requestFullscreen().then(() => requestedFullscreen = true);
   }
 }
 
@@ -99,7 +98,7 @@ function calcFreq(string, y)
 function onTouch(id, x, y)
 {
   mobileFullscreen();
-  
+
   Tone.context.resume();
 
   //determine string
