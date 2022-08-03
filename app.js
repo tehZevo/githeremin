@@ -92,7 +92,7 @@ var touches = {};
 function calcFreq(string, y)
 {
   //determine semitone above string
-  var fret = (1 - y / canvas.height) * N_FRETS;
+  var fret = (1 - y / window.innerHeight) * N_FRETS;
   //exponential note formula starting at string root note
   return 440 * Math.pow(2, (STRINGS[string] + fret - 0.5) / 12);
 }
