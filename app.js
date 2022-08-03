@@ -157,11 +157,16 @@ function render()
     {
       var note = STRINGS[i] + j;
       var isWhite = WHITES[mod(note, 12)]; //+8 to go from a to c lol
+      var isC = mod(note - 3, 12) == 0;
       var y1 = j * FH();
       var y2 = (j + 1) * FH();
 
-      var w = isWhite ? 255 : 0;
-      g.fillStyle = `rgba(${w}, ${w}, ${w}, 0.25)`;
+      var color =
+        isC ? "rgba(0, 255, 0, 0.25)" :
+        isWhite ? "rgba(255, 255, 255, 0.25)" :
+        "rgba(0, 0, 0, 0.25)";
+
+      g.fillStyle = color;
       g.fillRect(x1, canvas.height-y2, SW(), FH());
       g.strokeRect(x1, canvas.height-y2, SW(), FH());
     }
