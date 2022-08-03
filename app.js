@@ -21,7 +21,7 @@ function mobileFullscreen()
   }
 }
 
-var ROOT = parseInt(params.root ?? -12-12+3-12);
+var ROOT = parseInt(params.root ?? 0) - 33; //0 and increments of 12 are "C"s
 var STEP = parseInt(params.step ?? 5);
 var N_STRINGS = parseInt(params.strings ?? 4);
 var STRINGS = new Array(N_STRINGS).fill(0).map((e, i) => ROOT + i * STEP);
