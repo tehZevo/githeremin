@@ -28,6 +28,9 @@ var N_STRINGS = parseInt(params.strings ?? 4);
 var STRINGS = new Array(N_STRINGS).fill(0).map((e, i) => ROOT + i * STEP);
 var N_FRETS = parseInt(params.frets ?? 12);
 var SYNTH_TYPE = params.synth ?? "triangle"
+var LOOKAHEAD = parseFloat(params.lookahead ?? 0);
+
+Tone.getContext().lookAhead = LOOKAHEAD;
 
 var WHITES = [1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0]; //starting at A
 
