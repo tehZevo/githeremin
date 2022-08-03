@@ -8,6 +8,20 @@ const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 console.log(params);
 
+var requestedFullscreen = false;
+function mobileFullscreen()
+{
+  if(requestedFullscreen)
+  {
+    return;
+  }
+
+  requestedFullscreen = true;
+  if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    document.body.requestFullscreen();
+  }
+}
+
 // var ROOT = params.root ?? -5-12-12;
 var ROOT = parseInt(params.root ?? -12-12+3-12);
 var STEP = parseInt(params.step ?? 5);
@@ -84,6 +98,8 @@ function calcFreq(string, y)
 
 function onTouch(id, x, y)
 {
+  mobileFullscreen();
+  
   Tone.context.resume();
 
   //determine string
